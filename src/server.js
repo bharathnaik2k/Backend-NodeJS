@@ -27,8 +27,16 @@ require("dotenv").config();
 
 const express = require("express");
 const pool = require("./config/database");
+const authRoutes = require("./routes/authRoutes"); // Auth ರೌಟ್ಸ್ ಇಂಪೋರ್ಟ್ ಮಾಡಿಕೊಳ್ಳುವುದು
 
 const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// ನಮ್ಮ API ದಾರಿಗಳು (Routes)
+app.use("/api/auth", authRoutes); // ಇದು /api/auth/signup ಎಂದು ಕೆಲಸ ಮಾಡುತ್ತದೆ
+
 console.log(process.env.DB_HOST);
 
 app.get("/", async (req, res) => {
